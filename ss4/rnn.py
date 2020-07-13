@@ -5,6 +5,11 @@ import re
 import tensorflow as tf
 import numpy as np
 
+# Mạng nơ-ron hồi quy - Recurrent Neural Networks ra đời.
+# Chuyên dùng cho dữ liệu dạng chuỗi.
+# Mô hình hóa quan hệ thứ tự giữa các phần tử trong chuỗi
+# mô hình hoá ngôn , dịch máy, nhận dạng giọng nói, mô tả hình ảnh
+
 tf.disable_eager_execution()
 
 MAX_DOC_LENGTH = 500

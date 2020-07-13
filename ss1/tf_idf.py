@@ -1,7 +1,12 @@
 import numpy as np
 import os, nltk, re
 from collections import defaultdict
+# tạo từ điển
+# thống kê độ quan trọng của 1 từ trong văn bản
+# tf tần suất xhien của từ trong văn bản
+# idf tính toán độ qtrong của 1 từ trong văn bản
 
+# tính tf-idf
 def get_tf_idf(data_path):
   with open('../datasets/20news-bydate/words_idfs.txt') as f:
     words_idfs = [(line.split('<fff>')[0], float(line.split('<fff>')[1]))
@@ -44,7 +49,7 @@ def get_tf_idf(data_path):
   with open(data_path.replace("-processed", "-tfidf"), 'w') as f:
     f.write('\n'.join([str(label) + '<fff>' + str(doc_id) + '<fff>' + sparse_rep for label, doc_id, sparse_rep in data_tf_idf]))
 
-
+# đọc dữ liệu và tập hợp dữ liệu
 def gather_20newsgroups_data():
   path = '../datasets/20news-bydate/'
   dirs = [path + dir_name + '/'
@@ -55,6 +60,8 @@ def gather_20newsgroups_data():
   list_newsgroups = [newsgroup
                       for newsgroup in os.listdir(train_dir)]
   list_newsgroups.sort()
+
+  # thu thập dữ liệu
   with open('../datasets/20news-bydate/stop_words.txt') as f:
     stop_words = f.read().splitlines()
   from nltk.stem.porter import PorterStemmer
@@ -92,6 +99,7 @@ def gather_20newsgroups_data():
     newsgroup_list=list_newsgroups
   )
 
+  # ghi ra file
   full_data = train_data + test_data
   with open('../datasets/20news-bydate/20news-train-processed.txt', 'w') as f:
     f.write('\n'.join(train_data))
@@ -102,6 +110,7 @@ def gather_20newsgroups_data():
   with open('../datasets/20news-bydate/20news-full-processed.txt', 'w') as f:
     f.write('\n'.join(full_data))
 
+# tạo từ điển và tính ước giá trị tf-idf
 def generate_vocabulary(data_path):
   def compute_idf(df, corpus_size):
     assert  df > 0

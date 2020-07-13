@@ -1,6 +1,18 @@
 import numpy as np
+# import matplotlib.pyplot as plt
+# Cross validation là một cải tiến của validation với lượng dữ liệu trong tập validation là nhỏ
+# nhưng chất lượng mô hình được đánh giá trên nhiều tập validation khác nhau.
+# là pp áp dụng khi bộ dữ liệu gặp vấn đề về đa cộng tuyến
+# các biến độc lập x có mối liên hệ với nhau và ảnh hưởng đến kết quả dự báo của y
+# mô hình hồi qui phân tích mqh giữ biến độc lập và biến phụ thuộc
+# điều chỉnh mô hình sao cho giảm thiểu các vấn đề về Overfitting
+# sd pp Regularization
+# kiểm soát mức độ phức tạp của mô hình
+# Lamda: giá trị tham số chính quy Regularization, luôn dương
+# là gtri mà ở đó pt tuyến tính sẽ dc tinh chỉnh sao cho sai số của mô hình giảm tối đa
+# cực tiểu hoá hàm lỗi
 
-
+# đọc dữ liệu
 def get_data(path):
     X, Y = [], []
     with open(path) as f:
@@ -12,7 +24,7 @@ def get_data(path):
 
     return np.array(X), np.array(Y)
 
-
+# chuẩn hoá dữ liệu
 def normalize_and_add_ones(X):
     X = np.array(X)
     X_max = np.array([[np.amax(X[:, column_id])
@@ -26,7 +38,7 @@ def normalize_and_add_ones(X):
     ones = np.array([[1] for _ in range(X_normalized.shape[0])])
     return np.column_stack((ones, X_normalized))
 
-
+# triển khai mô hình
 class RidgeRegression:
     def __init__(self):
         return
@@ -122,3 +134,4 @@ if __name__ == '__main__':
     )
     Y_predicted = ridge_regression.predict(W=W_learned, X_new=X_test)
     print(ridge_regression.compute_RSS(Y_new=Y_test, Y_predicted=Y_predicted))
+
